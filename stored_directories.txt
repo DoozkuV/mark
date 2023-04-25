@@ -1,0 +1,9 @@
+/home/doozku/Documents/ISD/assignment7-DoozkuV
+/home/doozku/Documents/ComputerEthics
+/home/doozku/Documents/ISD/lec15
+/home/doozku/.config/nvim
+/home/doozku/.config/qtile
+/home/doozku/bin
+/home/doozku/Documents/DiscreteStructures
+/home/doozku/Documents/Obsidian/Knowledge Bank
+/home/doozku/Scripts

@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+script_dir="$( dirname "$( realpath "${BASH_SOURCE[0]}" )" )"
+
+# Check if the directory already exists 
+if [ ! -e "$script_dir/stored_directories.txt" ]; then
+    touch "$script_dir/stored_directories.txt" 
+fi
+
+directory_file="$script_dir/stored_directories.txt" 
+terminal="alacritty"
+
+add(){
+    echo "Added $(pwd) to $directory_file"
+    pwd >> "$directory_file"
+    return $?
+}
+
+remove() {
+    if grep -qx "$(pwd)" "$directory_file"; then
+        sed -i "\|^$(pwd)$|d" "$directory_file"  
+        echo "Removed $(pwd) from $directory_file"
+    else 
+        echo "Directory $(pwd) not found in $directory_file!"
+    fi
+    return $?
+}
+
+list() {
+    cat "$directory_file"
+    return $?
+}
+
+main() {
+    if selected_directory="$(cat "$directory_file" | rofi -i -dmenu)"; then
+        cd "$selected_directory"
+        $(echo "$terminal") & disown
+    fi
+    return $?
+}
+
+case $1 in
+    add)
+        add
+        ;;
+    remove)
+        remove
+        ;;
+    list)
+        list
+        ;;
+    *)
+        main 
+        ;;     
+esac
